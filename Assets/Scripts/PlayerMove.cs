@@ -15,9 +15,15 @@ public class PlayerMove : MonoBehaviour {
 
     public Transform innerCircle;
     public Transform outerCircle;
-    
+    public float decrease;
+
     void Update() {
-        if(Input.GetMouseButtonDown(0)) {
+        if (player.transform.localScale.magnitude > 5) {
+            Debug.Log("decreasing");
+
+            player.transform.localScale -= new Vector3(decrease, decrease, decrease);
+        }
+        if (Input.GetMouseButtonDown(0)) {
             pointA = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
 
             innerCircle.transform.position = pointA;
