@@ -24,4 +24,10 @@ public class FoodSpawn : MonoBehaviour {
     
     }
 
+    private void Update() {
+        if (GlobalState.Instance.alive == false) {
+            CancelInvoke();
+        }
+    }
+
 }

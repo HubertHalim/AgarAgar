@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Eat : MonoBehaviour {
+public class EnemyEat : MonoBehaviour {
 
     public string FoodTag;
     public float increase;
-    public string EnemyTag;
+    public string PlayerTag;
 
     void OnTriggerEnter(Collider other) {
 
@@ -17,19 +17,18 @@ public class Eat : MonoBehaviour {
             Destroy(other.gameObject);
         }
 
-        if (other.gameObject.tag == EnemyTag) {
-            Debug.Log("meet enemy");
-            Transform enemy = other.gameObject.transform;
-            if (transform.localScale.magnitude >= enemy.localScale.magnitude) {
-                transform.localScale += new Vector3(enemy.localScale.x / 3, enemy.localScale.y / 3, enemy.localScale.z / 3);
-                Debug.Log("eat enemy");
+        if (other.gameObject.tag == PlayerTag) {
+            Debug.Log("player met");
+            Transform player = other.gameObject.transform;
+            if (transform.localScale.magnitude > player.localScale.magnitude) {
+                transform.localScale += new Vector3(player.localScale.x / 3, player.localScale.y / 3, player.localScale.z / 3);
+                Debug.Log("eat player");
             } else {
                 Debug.Log("died");
-                GlobalState.Instance.alive = false;
                 Destroy(gameObject.transform.GetChild(0).gameObject);
                 Destroy(gameObject);
             }
         }
     }
- 
+
 }
