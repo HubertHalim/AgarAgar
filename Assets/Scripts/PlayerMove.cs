@@ -67,5 +67,6 @@ public class PlayerMove : MonoBehaviour {
         player.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
         innerCircle.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
         outerCircle.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
+=======
     }
 }
