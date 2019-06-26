@@ -16,12 +16,18 @@ public class PlayerMove : MonoBehaviour {
     public Transform innerCircle;
     public Transform outerCircle;
     public float decrease;
+    private float size;
 
     private void Start() {
         GlobalState.Instance.alive = true;
     }
 
     void Update() {
+
+        size = Camera.main.orthographicSize/2.6f;
+        innerCircle.localScale = new Vector3(size, size, size);
+        outerCircle.localScale = new Vector3(size, size, size);
+
         if (GlobalState.Instance.alive == true) {
             if (player.transform.localScale.magnitude > 5) {
                 Debug.Log("decreasing");
@@ -49,9 +55,9 @@ public class PlayerMove : MonoBehaviour {
         if (GlobalState.Instance.alive == true) {
             if (touchStart) {
                 Vector2 offset = pointB - pointA;
-                joystickD = Vector2.ClampMagnitude(offset, 1.0f);
+                joystickD = Vector2.ClampMagnitude(offset, size);
                 if (offset.magnitude > 1) {
-                    direction = Vector2.ClampMagnitude(offset, 1.0f);
+                    direction = Vector2.ClampMagnitude(offset, size);
                 }
                 innerCircle.transform.position = new Vector2(pointA.x + joystickD.x, pointA.y + joystickD.y);
             } else {
@@ -63,7 +69,18 @@ public class PlayerMove : MonoBehaviour {
     }
 
     void movePlayer(Vector2 direction) {
-        
+        if (player.position.x > 100) {
+            direction.x = -1;
+        }
+        if (player.position.x < -100) {
+            direction.x = 1;
+        }
+        if (player.position.y > 100) {
+            direction.y = -1;
+        }
+        if (player.position.y < -100) {
+            direction.y = 1;
+        }
         player.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
         innerCircle.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
         outerCircle.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));

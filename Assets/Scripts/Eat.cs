@@ -16,9 +16,9 @@ public class Eat : MonoBehaviour {
             transform.localScale += new Vector3(increase, increase, increase);
             Destroy(other.gameObject);
         }
-
-        if (other.gameObject.tag == EnemyTag) {
-            Debug.Log("meet enemy");
+        Debug.Log("meet enemy " + other.gameObject.tag);
+        if ((other.gameObject.tag.Length >= 7 && other.gameObject.tag.Substring(0, 7) == EnemyTag)) {
+            Debug.Log("meet enemy " + other.gameObject.tag);
             Transform enemy = other.gameObject.transform;
             if (transform.localScale.magnitude >= enemy.localScale.magnitude) {
                 transform.localScale += new Vector3(enemy.localScale.x / 3, enemy.localScale.y / 3, enemy.localScale.z / 3);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +10,19 @@ public class CameraFollow : MonoBehaviour
 
     void Awake()
     {
-        GetComponent<UnityEngine.Camera>().orthographicSize = (Screen.height / 2) / cameraDistance;
+        GetComponent<Camera>().orthographicSize = (Screen.height / 2) / cameraDistance;
+    }
+
+    private void Update() {
+        Camera.main.orthographicSize = (float)Math.Sqrt(playerTank.localScale.magnitude) + 2.0f;
     }
 
     void FixedUpdate()
     {
 
-        transform.position = new Vector3(playerTank.position.x, playerTank.position.y, -10.0f);
+        if (GlobalState.Instance.alive == true) {
+            transform.position = new Vector3(playerTank.position.x, playerTank.position.y, -10.0f);
+        }
     }
     
 }

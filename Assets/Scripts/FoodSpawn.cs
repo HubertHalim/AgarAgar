@@ -14,14 +14,12 @@ public class FoodSpawn : MonoBehaviour {
 
     void Generate() {
 
-        int x = Random.Range(0, Camera.main.pixelWidth);
-        int y = Random.Range(0, Camera.main.pixelHeight);
-
-        Vector3 target = Camera.main.ScreenToWorldPoint(new Vector3(x, y, 0));
-        target.z = 0;
+        int x = Random.Range(-100, 100);
+        int y = Random.Range(-100, 100);
+         
+        Vector3 target = new Vector3(x, y, 0);
 
         Instantiate(food, target, Quaternion.identity);
-    
     }
 
     private void Update() {
