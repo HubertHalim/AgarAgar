@@ -60,3 +60,15 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+# Python stuff
+pyvenv.cfg
+/Lib/
+/ml-agents/
+/share/
+/etc/
+/bin/
+/Library/
+/Temp/
+/Scripts/
+/lib64/

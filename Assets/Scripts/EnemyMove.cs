@@ -11,6 +11,7 @@ public class EnemyMove : MonoBehaviour
     public string playerTag;
     public string enemyTag;
     Vector2 direction;
+    float timeCounter = 0;
 
     Transform GetClosestObject() {
         Transform bestTarget = null;
@@ -33,6 +34,7 @@ public class EnemyMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate() {
 
+        timeCounter += Time.deltaTime;
         Transform closest = GetClosestObject();
     
         Vector2 offset = new Vector2(0, 0);
@@ -83,7 +85,9 @@ public class EnemyMove : MonoBehaviour
 
     void Wander() {
         Debug.Log("Dunno which way to go");
-        direction = new Vector2(1, 1);
+        float x = Mathf.Cos(timeCounter / 4);
+        float y = Mathf.Sin(timeCounter / 4);
+        direction = new Vector2(x, y);
         MoveEnemy(direction);
     }
 
