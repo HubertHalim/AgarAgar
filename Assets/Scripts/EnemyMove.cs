@@ -104,6 +104,6 @@ public class EnemyMove : MonoBehaviour
         if (gameObject.transform.position.y < -100) {
             direction.y = 1;
         }
-        gameObject.transform.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(gameObject.transform.transform.localScale.magnitude / 7));
+        gameObject.transform.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(gameObject.transform.transform.localScale.magnitude / 20));
     }
 }

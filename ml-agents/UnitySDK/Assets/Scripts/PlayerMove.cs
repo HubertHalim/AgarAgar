@@ -1,0 +1,88 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+public class PlayerMove : MonoBehaviour {
+
+    public Transform player;
+    public float speed;
+    private bool touchStart = false;
+    private Vector2 pointA;
+    private Vector2 pointB; 
+    private Vector2 direction;
+    private Vector2 joystickD;
+
+    public Transform innerCircle;
+    public Transform outerCircle;
+    public float decrease;
+    private float size;
+
+    private void Start() {
+        GlobalState.Instance.alive = true;
+    }
+
+    void Update() {
+
+        size = Camera.main.orthographicSize/2.6f;
+        innerCircle.localScale = new Vector3(size, size, size);
+        outerCircle.localScale = new Vector3(size, size, size);
+
+        if (GlobalState.Instance.alive == true) {
+            if (player.transform.localScale.magnitude > 5) {
+                Debug.Log("decreasing");
+
+                player.transform.localScale -= new Vector3(decrease, decrease, decrease);
+            }
+            if (Input.GetMouseButtonDown(0)) {
+                pointA = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
+
+                innerCircle.transform.position = pointA;
+                outerCircle.transform.position = pointA;
+                innerCircle.GetComponent<SpriteRenderer>().enabled = true;
+                outerCircle.GetComponent<SpriteRenderer>().enabled = true;
+            }
+            if (Input.GetMouseButton(0)) {
+                touchStart = true;
+                pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
+            } else {
+                touchStart = false;
+            }
+        }
+    }
+    
+    private void FixedUpdate() {
+        if (GlobalState.Instance.alive == true) {
+            if (touchStart) {
+                Vector2 offset = pointB - pointA;
+                joystickD = Vector2.ClampMagnitude(offset, size);
+                if (offset.magnitude > 1) {
+                    direction = Vector2.ClampMagnitude(offset, size);
+                }
+                innerCircle.transform.position = new Vector2(pointA.x + joystickD.x, pointA.y + joystickD.y);
+            } else {
+                innerCircle.GetComponent<SpriteRenderer>().enabled = false;
+                outerCircle.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            movePlayer(direction);
+        }
+    }
+
+    void movePlayer(Vector2 direction) {
+        if (player.position.x > 100) {
+            direction.x = -1;
+        }
+        if (player.position.x < -100) {
+            direction.x = 1;
+        }
+        if (player.position.y > 100) {
+            direction.y = -1;
+        }
+        if (player.position.y < -100) {
+            direction.y = 1;
+        }
+        player.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
+        innerCircle.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
+        outerCircle.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
+    }
+}

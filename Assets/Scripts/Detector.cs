@@ -21,7 +21,7 @@ public class Detector : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other) {
-        Debug.Log("object escapes");
+        Debug.Log("object " + other.transform.tag + " escapes");
         script.objects.Remove(other.transform);
         //GlobalState.Instance.objects.Add(other.transform);
     }

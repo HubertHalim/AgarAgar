@@ -10,6 +10,12 @@ TagManager:
   - West
   - North
   - South
+  - Monster0
+  - Monster1
+  - Monster2
+  - Monster3
+  - Monster4
+  - Monster5
   layers:
   - Default
   - TransparentFX

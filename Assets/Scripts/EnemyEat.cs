@@ -27,21 +27,21 @@ public class EnemyEat : MonoBehaviour {
         if ((other.gameObject.transform.position - gameObject.transform.position).magnitude < mag) {
             Debug.Log(other.gameObject.tag);
             if (other.gameObject.tag == FoodTag) {
-                Debug.Log("monster eats food");
+                Debug.Log(gameObject.tag + " eats food");
                 transform.localScale += new Vector3(increase, increase, increase);
                 script.objects.Remove(other.transform);
                 Destroy(other.gameObject);
             }
 
             if (other.gameObject.tag == PlayerTag || (other.gameObject.tag.Length >= 7 && other.gameObject.tag.Substring(0, 7) == EnemyTag)) {
-                Debug.Log("monster meets potential prey");
+                Debug.Log(gameObject.tag + " meets potential prey");
                 Transform player = other.gameObject.transform;
                 if (transform.localScale.magnitude > player.localScale.magnitude) {
                     transform.localScale += new Vector3(player.localScale.x / 3, player.localScale.y / 3, player.localScale.z / 3);
                     script.objects.Remove(other.transform);
-                    Debug.Log("monster eats prey");
+                    Debug.Log(gameObject.tag + " eats prey " + other.gameObject.tag);
                 } else {
-                    Debug.Log("monster died");
+                    Debug.Log(gameObject.tag + " died");
                     Destroy(gameObject.transform.GetChild(0).gameObject);
                     Destroy(gameObject);
                 }
