@@ -13,8 +13,8 @@ public class PlayerMove : MonoBehaviour {
     private Vector2 direction; // Direction of movement
     private Vector2 joystickD; // Direction of joystick
 
-    public Transform innerCircle; // Inner circle object
-    public Transform outerCircle; // Outer circle object
+    public Transform innerCircle; // Inner circle object - touch point
+    public Transform outerCircle; // Outer circle object - threshold
     public float decrease;
     private float size;
 
@@ -25,7 +25,7 @@ public class PlayerMove : MonoBehaviour {
 
     void Update() {
 
-        size = Camera.main.orthographicSize/2.6f;
+        size = Camera.main.orthographicSize/5f; // Relative size of the joystick compared to screen scale
         innerCircle.localScale = new Vector3(size, size, size);
         outerCircle.localScale = new Vector3(size, size, size);
 
@@ -95,5 +95,7 @@ public class PlayerMove : MonoBehaviour {
         player.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
         innerCircle.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
         outerCircle.Translate(direction * speed * Time.deltaTime / (int)Math.Ceiling(player.transform.localScale.magnitude / 10));
+        pointA = pointB;
+        //  touchStart = false;
     }
 }
