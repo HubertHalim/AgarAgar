@@ -5,20 +5,21 @@ using System;
 
 public class PlayerMove : MonoBehaviour {
 
-    public Transform player;
-    public float speed;
-    private bool touchStart = false;
-    private Vector2 pointA;
-    private Vector2 pointB; 
-    private Vector2 direction;
-    private Vector2 joystickD;
+    public Transform player; // Player Object
+    public float speed; // Player Speed
+    private bool touchStart = false; // Whether player is touching the screen
+    private Vector2 pointA; // Position where player start to touch the screen
+    private Vector2 pointB; // Position of the player's finger at the end
+    private Vector2 direction; // Direction of movement
+    private Vector2 joystickD; // Direction of joystick
 
-    public Transform innerCircle;
-    public Transform outerCircle;
+    public Transform innerCircle; // Inner circle object
+    public Transform outerCircle; // Outer circle object
     public float decrease;
     private float size;
 
     private void Start() {
+        // Whether player is alive or not
         GlobalState.Instance.alive = true;
     }
 
@@ -35,14 +36,19 @@ public class PlayerMove : MonoBehaviour {
                 player.transform.localScale -= new Vector3(decrease, decrease, decrease);
             }
             if (Input.GetMouseButtonDown(0)) {
+                
+                // Get position where the player touches the screen
                 pointA = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
-
+                   
+                // Display joystick at the place where player first touch the screen
                 innerCircle.transform.position = pointA;
                 outerCircle.transform.position = pointA;
                 innerCircle.GetComponent<SpriteRenderer>().enabled = true;
                 outerCircle.GetComponent<SpriteRenderer>().enabled = true;
             }
             if (Input.GetMouseButton(0)) {
+                
+                //Track player's finger movement as long as finger is on the screen
                 touchStart = true;
                 pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.z));
             } else {
@@ -54,16 +60,21 @@ public class PlayerMove : MonoBehaviour {
     private void FixedUpdate() {
         if (GlobalState.Instance.alive == true) {
             if (touchStart) {
+                // Get the vector from A to B
                 Vector2 offset = pointB - pointA;
+                // Direction of joystick movement limiting it to the size
                 joystickD = Vector2.ClampMagnitude(offset, size);
                 if (offset.magnitude > 1) {
+                    // Cap the joystick movement to the size 
                     direction = Vector2.ClampMagnitude(offset, size);
                 }
+                // Move joystick to new position
                 innerCircle.transform.position = new Vector2(pointA.x + joystickD.x, pointA.y + joystickD.y);
             } else {
                 innerCircle.GetComponent<SpriteRenderer>().enabled = false;
                 outerCircle.GetComponent<SpriteRenderer>().enabled = false;
             }
+            // Move player in the direction specified in the {direction} vector
             movePlayer(direction);
         }
     }
