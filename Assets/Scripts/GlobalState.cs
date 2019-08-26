@@ -7,6 +7,8 @@ public class GlobalState : Singleton<GlobalState> {
     protected GlobalState() { }
 
     public bool alive = true;
+    public bool gameIsPaused = false;
+    public bool inMainMenu = false;
 
     public List<Transform> objects = new List<Transform>();
 

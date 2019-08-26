@@ -29,7 +29,7 @@ public class PlayerMove : MonoBehaviour {
         innerCircle.localScale = new Vector3(size, size, size);
         outerCircle.localScale = new Vector3(size, size, size);
 
-        if (GlobalState.Instance.alive == true) {
+        if (GlobalState.Instance.alive == true && GlobalState.Instance.gameIsPaused == false) {
             if (player.transform.localScale.magnitude > 5) {
                 Debug.Log("decreasing");
 
@@ -54,6 +54,10 @@ public class PlayerMove : MonoBehaviour {
             } else {
                 touchStart = false;
             }
+        } 
+        if (GlobalState.Instance.gameIsPaused == true) {
+            innerCircle.GetComponent<SpriteRenderer>().enabled = false;
+            outerCircle.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
     

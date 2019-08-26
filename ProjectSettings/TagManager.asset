@@ -10,6 +10,13 @@ TagManager:
   - West
   - North
   - South
+  - ShowOnPause
+  - Monster1
+  - Monster2
+  - Monster3
+  - Monster4
+  - Monster5
+  - Monster6
   layers:
   - Default
   - TransparentFX
