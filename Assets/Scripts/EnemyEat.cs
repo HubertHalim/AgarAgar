@@ -6,7 +6,7 @@ using System;
 public class EnemyEat : MonoBehaviour {
 
     public string FoodTag;
-    public float increase;
+    public float increase = GlobalState.Instance.difficulty;
     public string PlayerTag;
     public string EnemyTag;
     EnemyMove script;
