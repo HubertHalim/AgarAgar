@@ -28,6 +28,10 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    public void toggleResume() {
+        Resume(); 
+    }
+
     void Pause() {
         Time.timeScale = 0f;
         GlobalState.Instance.gameIsPaused = true;
@@ -41,7 +45,7 @@ public class UIManager : MonoBehaviour {
     }
 
     public void MainMenu() {
-        SceneManager.LoadScene("MainMenuScene");
+        SceneManager.LoadScene("MenuScene");
     }
 
     public void Restart() {
