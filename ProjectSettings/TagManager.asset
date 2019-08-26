@@ -17,6 +17,7 @@ TagManager:
   - Monster4
   - Monster5
   - Monster6
+  - Monster0
   layers:
   - Default
   - TransparentFX

@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour {
+
+    public Text highScore;
+
+    private void Start() {
+        highScore.text = GlobalState.Instance.highScore.ToString();
+    }
+
     public void StartEasyGame() {
-        GlobalState.Instance.highScore = 0;
-        GlobalState.Instance.difficulty = 0.4f;
+        GlobalState.Instance.difficulty = 0.08f;
 
         SceneManager.LoadScene("GameScene");
     }
     public void StartMediumGame() {
-        GlobalState.Instance.highScore = 0;
-        GlobalState.Instance.difficulty = 0.5f;
+        GlobalState.Instance.difficulty = 0.1f;
 
         SceneManager.LoadScene("GameScene");
     }
     public void StartHardGame() {
-        GlobalState.Instance.highScore = 0;
-        GlobalState.Instance.difficulty = 0.9f;
+        GlobalState.Instance.difficulty = 0.1321f;
 
         SceneManager.LoadScene("GameScene");
     }

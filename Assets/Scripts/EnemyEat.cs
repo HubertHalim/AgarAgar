@@ -6,19 +6,21 @@ using System;
 public class EnemyEat : MonoBehaviour {
 
     public string FoodTag;
-    public float increase = GlobalState.Instance.difficulty;
+    public float increase;
     public string PlayerTag;
     public string EnemyTag;
     EnemyMove script;
 
     private void Start() {
         script = transform.GetComponent<EnemyMove>();
+        increase = GlobalState.Instance.difficulty;
+        Debug.Log("start " + GlobalState.Instance.difficulty);
     }
 
     private void OnTriggerEnter(Collider other) {
 
-        Debug.Log("lai liao");
-        float mag;
+        Debug.Log("lai liao " + increase);
+        float mag; 
         if (other.transform.localScale.magnitude <= gameObject.transform.localScale.magnitude) {
             mag = gameObject.transform.localScale.magnitude;
         } else {

@@ -15,6 +15,7 @@ public class Eat : MonoBehaviour {
             Debug.Log("eat");
             transform.localScale += new Vector3(increase, increase, increase);
             Destroy(other.gameObject);
+            GlobalState.Instance.currentScore++;
         }
         Debug.Log("meet enemy " + other.gameObject.tag);
         if ((other.gameObject.tag.Length >= 7 && other.gameObject.tag.Substring(0, 7) == EnemyTag)) {
@@ -22,7 +23,8 @@ public class Eat : MonoBehaviour {
             Transform enemy = other.gameObject.transform;
             if (transform.localScale.magnitude >= enemy.localScale.magnitude) {
                 transform.localScale += new Vector3(enemy.localScale.x / 3, enemy.localScale.y / 3, enemy.localScale.z / 3);
-                Debug.Log("eat enemy");
+                Debug.Log("eat enemy " + (int)enemy.localScale.magnitude);
+                GlobalState.Instance.currentScore = GlobalState.Instance.currentScore +  (int)enemy.localScale.magnitude*5;
             } else {
                 Debug.Log("died");
                 GlobalState.Instance.alive = false;
